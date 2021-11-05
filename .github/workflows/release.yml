@@ -1,0 +1,21 @@
+name: release
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, closed]
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mojken/monkey-release-action@master
+        id: release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          base_branch: main
+          head_branch: dev
+          tag_prefix: releases/
+          approve_releases: true
+          release_label: release
+          generate_release_notes: true
